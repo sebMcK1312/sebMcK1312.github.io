@@ -350,6 +350,7 @@ for (let i = 0; i < noOfModals; i++) {
   const text = goalHeaders[i].textContent;
 
   if (isMobileDevice()) {
+    headerStyle.fontFamily = "sans-serif";
     if (text.length > 22) {
       headerStyle.transform = "scale(0.7)";
       headerStyle.top = "105px";
@@ -382,5 +383,3 @@ function isMobileDevice() {
     navigator.userAgent
   );
 }
-
-console.log(goalHeaders[14].textContent.length);
