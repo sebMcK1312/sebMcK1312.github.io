@@ -239,3 +239,148 @@ const simcal_default_calendar = {
   },
   meridiem: { AM: "AM", am: "am", PM: "PM", pm: "pm" },
 };
+
+const noOfModals = 17; // temp value for no of implemented modals
+
+// <-- Opening and closing modals -->
+const modals = [];
+const overlay = document.querySelector(".overlay");
+const btnsOpen = [];
+const btnsClose = [];
+let activeModal;
+
+for (let i = 0; i < noOfModals; i++) {
+  modals[i] = document.querySelector(`.modal-${i}`);
+  btnsOpen[i] = document.querySelector(`.btn-open-${i}`);
+  btnsClose[i] = document.querySelector(`.btn-close-${i}`);
+}
+const openModal = function (modal) {
+  // Setting the active modal
+  activeModal = modal;
+
+  // <-- Centering modal on screen -->
+  modals[activeModal].style.top = `${scrollY + 300}px`;
+  // Opening modal
+  modals[activeModal].classList.remove("hidden");
+  overlay.classList.remove("hidden");
+
+  // Adding closing event listeners
+  btnsClose[activeModal].addEventListener("click", function () {
+    closeModal();
+  });
+};
+const closeModal = function () {
+  modals[activeModal].classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && !modals[activeModal].classList.contains("hidden")) {
+    closeModal();
+  }
+});
+
+for (let i = 0; i < noOfModals; i++) {
+  btnsOpen[i].addEventListener("click", function () {
+    openModal(i);
+  });
+}
+
+// <-- assigning modal colours -->
+const backgroundColours = [
+  "#ea1d2d",
+  "#d19f2a",
+  "#2d9a47",
+  "#c22033",
+  "#ef412a",
+  "#00aed9",
+  "#fdb714",
+  "#8f1838",
+  "#f36e24",
+  "#e01a83",
+  "#f99d25",
+  "#cd8b2a",
+  "#48773c",
+  "#007dbb",
+  "#40ae49",
+  "#00558a",
+  "#00558a",
+];
+for (let i = 0; i < noOfModals; i++) {
+  const modalHeader = document.querySelector(`.modal-${i} h1`);
+  modals[i].style.backgroundColor = backgroundColours[i];
+  modalHeader.style.backgroundColor = backgroundColours[i];
+}
+// <-- Setting modal header text -->
+const goalHeaders = document.querySelectorAll(".goal-modal-header");
+const goals = [
+  "No Poverty",
+  "Zero Hunger",
+  "Good Health and Well-being",
+  "Quality Education",
+  "Gender Equality",
+  "Clean Water and Sanitation",
+  "Affordable and Clean Energy",
+  "Decent Work and Economic Growth",
+  "Industry, Innovation and Infrastructure",
+  "Reduced Inequalities",
+  "Sustainable Cities and Communities",
+  "Responsible Consumption and Production",
+  "Climate Action",
+  "Life Below Water",
+  "Life on Land",
+  "Peace, Justice and Strong Institutions",
+  "Partnership for the Goals",
+];
+const modalImages = document.querySelectorAll(".modal-image");
+const toSlug = function (string) {
+  const lowercaseString = string.toLowerCase();
+  const slug = lowercaseString.replace(/\s+/g, "-");
+  return slug;
+};
+let yIncrement = 100;
+for (let i = 0; i < noOfModals; i++) {
+  //  <-- Setting header text -->
+  goalHeaders[i].textContent = `Goal ${i + 1} - ${goals[i]}`;
+
+  // <-- Adjusting modal header size -->
+  const headerStyle = goalHeaders[i].style;
+  const text = goalHeaders[i].textContent;
+
+  if (isMobileDevice()) {
+    if (text.length > 22) {
+      headerStyle.transform = "scale(0.7)";
+      headerStyle.top = "105px";
+      if (text.length > 40) {
+        headerStyle.top = "85px";
+      }
+    }
+  } else {
+    let headerWidth = 10;
+    if (text.length > 38) {
+      for (let j = 0; j < text.length; j++) {
+        headerWidth += 10;
+        headerStyle.top = "100px";
+      }
+    } else {
+      for (let j = 0; j < text.length; j++) {
+        headerWidth += 15;
+      }
+    }
+    headerStyle.width = `${headerWidth}px`;
+  }
+
+  // <-- Setting image source -->
+  modalImages[i].src = `/assets/modal-images/${toSlug(goals[i])}.jpeg`;
+}
+
+// <-- Optimising for mobile
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+}
+
+console.log(goalHeaders[14].textContent.length);

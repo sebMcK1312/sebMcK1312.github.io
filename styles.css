@@ -10,7 +10,7 @@ img.emoji {
   background: none !important;
   padding: 0 !important;
 }
-
+/* Goals Grid */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -37,43 +37,89 @@ img.emoji {
 
 .goal-image {
   opacity: 0.8;
-  transition: 0.5s ease;
+}
+/* Modal windows */
+.hidden {
+  display: none;
+}
+
+.goal-modal {
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+.goal-modal-text {
+  color: white;
+  padding: 4.5rem;
+  padding-top: 2rem;
 }
 .overlay {
   position: absolute;
-  height: 100%;
+  top: 0;
+  left: 0;
   width: 100%;
-  opacity: 0;
-  transition: 0.5s ease;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.585);
+  backdrop-filter: blur(3px);
+  z-index: 5;
 }
 
-.goal-1:hover > .overlay {
-  background-color: red;
-  opacity: 0.9;
+.show-modal,
+.close-modal {
+  cursor: pointer;
 }
 
-.goal-1:hover > .goal-image {
-  opacity: 0;
-}
-.overlay-text {
-  width: 200px;
-  height: auto;
-  color: white;
-  font-size: 20px;
+.close-goal-modal {
   position: absolute;
-  top: 50%;
-  left: 37.5%;
-  transform: translate(-35%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  font-size: 16px;
+  top: 9px;
+  right: 8px;
+  font-size: 5rem;
+  color: white;
+  border: none;
+  background: none;
+  z-index: 1;
+}
+
+.modal-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  opacity: 80%;
+}
+
+.goal-modal-header {
+  width: 300px;
+  position: absolute;
   text-align: center;
+  color: white;
+  top: 125px;
+  left: 0px;
+  /* font-family: "Lexend", sans-serif; */
+  border-top-right-radius: 10px;
 }
 
-.goal-2:hover > .overlay {
-  background-color: #d19f2a;
-  opacity: 0.9;
-}
+@media only screen and (max-width: 768px) {
+  .goal-modal {
+    width: 100%;
+  }
 
-.goal-2:hover > .goal-image {
-  opacity: 0;
+  .goal-modal-header,
+  .goal-modal-text {
+    transform: scale(0.9);
+  }
+  .goal-modal-text {
+    padding: 1rem;
+  }
+
+  .goal-modal-header {
+    top: 130px;
+    border-top-left-radius: 10px;
+  }
 }
