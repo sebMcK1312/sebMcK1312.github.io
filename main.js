@@ -360,7 +360,8 @@ for (let i = 0; i < noOfModals; i++) {
     }
   } else {
     let headerWidth = 10;
-    if (text.length > 38) {
+    // <-- Goals that are wider than modal -->
+    if (text.length > 34) {
       for (let j = 0; j < text.length; j++) {
         headerWidth += 10;
         headerStyle.top = "100px";
